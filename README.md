@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Marengo Decor · Frontend Architecture Lab
 
-## Getting Started
+Internal estimation studio for curtains and blinds built with **Next.js 16**,  
+designed as a **frontend architecture lab** to practise skills expected from a  
+Senior Front-End Engineer (React / Next.js / TypeScript).
 
-First, run the development server:
+The goal is not to ship a production app, but to demonstrate:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Clean **application architecture** on top of the App Router
+- Separation of **UI, state and API layers**
+- Typed communication between **server routes and client components**
+- Usage of **React Query** and **Zustand** in a modern Next.js setup
+- A small, composable **Tailwind-based design system**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Framework:** Next.js 16 (App Router, React 19, React Compiler enabled)
+- **Language:** TypeScript
+- **Routing:** App Router with **route groups** `/(public)` and `/(budget)`
+- **State Management:**
+  - **React Query** (server state, mutations)
+  - **Zustand** (local UI state for forms)
+- **Styling:** Tailwind CSS + minimal UI primitives
+- **Build Tooling:** pnpm, ESLint
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## High-level Architecture
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The app is intentionally small but structured like a real-world product.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Routing & Layouts
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```txt
+src/app
+├─ layout.tsx                  # Root layout (fonts, global shell)
+├─ page.tsx                    # Home: entry to /budget and /login
+├─ api/
+│   └─ calculate/route.ts      # Typed estimation API
+├─ (public)/
+│   └─ login/page.tsx          # Public login route (bypass → /budget)
+└─ (budget)/
+    ├─ layout.tsx              # React Query provider scoped to this segment
+    └─ budget/page.tsx         # Estimation screen

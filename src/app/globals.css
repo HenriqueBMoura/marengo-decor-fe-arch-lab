@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Se quiser manter as variáveis de tema, coloca depois daqui */
 :root {
   --background: #000000;
   --foreground: #171717;
