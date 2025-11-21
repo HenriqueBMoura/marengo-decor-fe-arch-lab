@@ -23,8 +23,7 @@ export default function LoginPage() {
             Sign in to dashboard
           </h1>
           <p className="text-sm text-neutral-500">
-            This route is used to practise public vs. feature segments. Submitting
-            the form intentionally redirects straight into the estimator.
+            This route is used to practice public vs. feature segments. Submitting the form intentionally redirects straight into the estimator.
           </p>
         </header>
 

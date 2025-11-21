@@ -41,7 +41,7 @@ export default function BudgetPage() {
               </h1>
               <p className="max-w-xl text-sm text-neutral-400">
                 Internal tool used to quickly estimate pricing based on opening
-                dimensions and material. Built to practise frontend
+                dimensions and material. Built to practice frontend
                 architecture, state management and server interaction in
                 Next.js 16.
               </p>
