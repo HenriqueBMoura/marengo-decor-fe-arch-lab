@@ -110,7 +110,7 @@ export default function BudgetPage() {
 
               <Button
                 type="button"
-                className="border border-neutral-300 bg-transparent text-sm font-medium text-neutral-950 hover:bg-neutral-100 hover:text-white"
+                className="border border-neutral-300 bg-transparent text-sm font-medium text-zinc-700 hover:bg-neutral-100 hover:text-white"
                 onClick={() => {
                   reset();
                   calc.reset();
