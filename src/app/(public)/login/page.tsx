@@ -2,68 +2,79 @@
 
 import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
+import { ThemeToggle } from "@/components/theme/theme-toggle";
 
 export default function LoginPage() {
   const router = useRouter();
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // bypass fake auth → go straight to budget estimator
-    router.push("/budget");
+    router.push("/budget"); // mocked auth
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-neutral-950 px-4">
-      <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-xl">
-        <header className="mb-6 space-y-1">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">
+    <main className="flex min-h-screen items-center justify-center bg-background px-4 py-12">
+      <div className="w-full max-w-md rounded-2xl border border-border bg-surface p-8 shadow-soft">
+        {/* Top bar with brand label + theme switch */}
+        <div className="mb-6 flex items-center justify-between gap-4">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-muted">
             Marengo Decor · Frontend Architecture
           </p>
-          <h1 className="text-2xl font-semibold tracking-tight text-neutral-900">
+          <ThemeToggle />
+        </div>
+
+        {/* Header */}
+        <header className="mb-6 space-y-1">
+          <h1 className="text-display-2 text-balance font-semibold text-text-primary">
             Sign in to dashboard
           </h1>
-          <p className="text-sm text-neutral-500">
-            This route is used to practice public vs. feature segments. Submitting the form intentionally redirects straight into the estimator.
+          <p className="text-sm text-text-muted leading-relaxed max-w-sm">
+            This route is used to practise public vs. feature segments.
+            Submitting the form intentionally redirects straight into the
+            estimator.
           </p>
         </header>
 
-        <form className="space-y-4" onSubmit={handleSubmit}>
+        {/* Form */}
+        <form className="space-y-5" onSubmit={handleSubmit}>
           <div className="space-y-1 text-sm">
-            <label className="font-medium text-neutral-800" htmlFor="email">
+            <label htmlFor="email" className="font-medium text-text-primary">
               Work email
             </label>
             <input
               id="email"
               type="email"
               placeholder="you@company.com"
-              className="w-full rounded-md border border-neutral-300 px-3 py-2 text-sm outline-none transition focus:border-black focus:ring-1 focus:ring-black"
+              className="w-full rounded-md border border-border bg-surface-soft px-3 py-2 text-sm text-text-primary outline-none placeholder:text-text-muted focus:border-brand focus:ring-2 focus:ring-brand"
             />
           </div>
 
           <div className="space-y-1 text-sm">
-            <label className="font-medium text-neutral-800" htmlFor="password">
+            <label htmlFor="password" className="font-medium text-text-primary">
               Password
             </label>
             <input
               id="password"
               type="password"
               placeholder="••••••••"
-              className="w-full rounded-md border border-neutral-300 px-3 py-2 text-sm outline-none transition focus:border-black focus:ring-1 focus:ring-black"
+              className="w-full rounded-md border border-border bg-surface-soft px-3 py-2 text-sm text-text-primary outline-none placeholder:text-text-muted focus:border-brand focus:ring-2 focus:ring-brand"
             />
           </div>
 
           <button
             type="submit"
-            className="mt-2 inline-flex w-full items-center justify-center rounded-md bg-black px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
+            className="w-full rounded-md bg-brand px-4 py-2 text-sm font-medium text-brand-foreground transition hover:bg-brand-soft"
           >
             Sign in and go to estimator
           </button>
         </form>
 
-        <p className="mt-4 text-xs leading-relaxed text-neutral-500">
-          Authentication is intentionally mocked. Submitting this form redirects to{" "}
-          <code>/budget</code> so the focus stays on routing, layouts and frontend
-          architecture rather than auth implementation.
+        {/* Footer text */}
+        <p className="mt-6 text-xs leading-relaxed text-text-muted">
+          Authentication is intentionally mocked. Submitting this form redirects
+          to <code className="text-text-primary">/budget</code> so the focus stays
+          on routing, layouts and frontend architecture rather than auth
+          implementation.
         </p>
       </div>
     </main>

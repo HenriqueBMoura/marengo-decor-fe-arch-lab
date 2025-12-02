@@ -1,0 +1,144 @@
+# Project Architecture - Marengo Decor
+
+```
+marengo-decor-fe-arch-lab/
+├── 📁 src/                           # Source code
+│   ├── 📁 app/                       # Next.js App Router
+│   │   ├── 📁 (budget)/              # Protected routes group
+│   │   │   ├── layout.tsx            # Budget area layout
+│   │   │   └── 📁 budget/            
+│   │   │       └── page.tsx          # Budget page
+│   │   ├── 📁 (public)/              # Public routes group
+│   │   │   └── 📁 login/             
+│   │   │       └── page.tsx          # Login page
+│   │   ├── 📁 api/                   # API Routes
+│   │   │   └── 📁 calculate/         
+│   │   │       └── route.ts          # Calculation endpoint
+│   │   ├── layout.tsx                # Root layout
+│   │   ├── page.tsx                  # Homepage
+│   │   ├── globals.css               # Global styles
+│   │   └── favicon.ico               
+│   ├── 📁 components/                # Reusable components
+│   │   └── 📁 ui/                    # Design system
+│   │       ├── button.tsx            
+│   │       ├── card.tsx              
+│   │       ├── input.tsx             
+│   │       └── select.tsx            
+│   ├── 📁 data/                      # Static data
+│   │   └── materials.ts              # Materials list
+│   └── 📁 lib/                       # Libraries and utilities
+│       ├── 📁 api/                   
+│       │   └── react-query-provider.tsx # React Query Provider
+│       ├── 📁 hooks/                 
+│       │   └── useCalculateBudget.ts # Custom hook
+│       ├── 📁 state/                 
+│       │   └── budgetStore.ts        # Zustand store
+│       └── 📁 types/                 
+│           ├── budget.ts             # Budget types
+│           └── material.ts           # Material types
+├── 📁 e2e/                           # End-to-End tests
+│   ├── 📁 fixtures/                  
+│   │   └── test-data.ts              # Test data
+│   ├── 📁 page-objects/              # Page Object Model
+│   │   ├── budget-page.ts            
+│   │   └── login-page.ts             
+│   ├── api-routes.spec.ts            # API tests
+│   ├── budget-flow.spec.ts           # Budget flow
+│   └── login-flow.spec.ts            # Login flow
+├── 📁 public/                        # Static assets
+│   ├── file.svg                      
+│   ├── globe.svg                     
+│   ├── next.svg                      
+│   ├── vercel.svg                    
+│   └── window.svg                    
+├── 📁 docs/                          # Documentation
+│   ├── architecture-diagram.md       # Mermaid diagrams
+│   ├── architecture-visual.html      # Interactive visualization
+│   └── project-structure.txt         # This file
+├── package.json                      # Dependencies and scripts
+├── tsconfig.json                     # TypeScript configuration
+├── next.config.ts                    # Next.js configuration
+├── playwright.config.ts              # Playwright configuration
+├── tailwind.config.js                # Tailwind configuration
+├── eslint.config.mjs                 # ESLint configuration
+├── postcss.config.js                 # PostCSS configuration
+├── pnpm-lock.yaml                    # pnpm lock file
+├── ARCHITECTURE.md                   # Architecture documentation
+└── README.md                         # Main documentation
+
+```
+
+## Data Flow
+
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   UI Component  │────│  Zustand Store  │    │  React Query    │
+│   (budget-page) │    │ (budgetStore.ts)│    │ (useCalculate)  │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │                       │
+         │              Client State              Server State
+         │                       │                       │
+         └───────────────────────┼───────────────────────┘
+                                 │
+                    ┌─────────────────┐
+                    │  API Routes     │
+                    │ (/api/calculate)│
+                    └─────────────────┘
+                                 │
+                    ┌─────────────────┐
+                    │  Data Layer     │
+                    │ (materials.ts)  │
+                    └─────────────────┘
+```
+
+## Testing Strategy
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                      Testing Pyramid                        │
+├─────────────────────────────────────────────────────────────┤
+│  E2E Tests (Playwright)                                    │
+│  ├── Page Object Model                                      │
+│  ├── Test Fixtures                                          │
+│  ├── User Flows (login, budget, api)                       │
+│  └── Multi-browser Testing                                  │
+├─────────────────────────────────────────────────────────────┤
+│  Integration Tests                                          │
+│  ├── API Route Testing                                      │
+│  ├── Component Integration                                  │
+│  └── State Management Testing                               │
+├─────────────────────────────────────────────────────────────┤
+│  Unit Tests                                                 │
+│  ├── Component Testing                                      │
+│  ├── Hook Testing                                           │
+│  └── Utility Function Testing                               │
+└─────────────────────────────────────────────────────────────┘
+```
+
+## Technologies & Patterns
+
+### Frontend Stack
+- **React 19** - Server Components support
+- **Next.js 16** - App Router, SSR, API Routes
+- **TypeScript 5+** - Complete type safety
+- **Tailwind CSS** - Utility-first styling
+
+### State Management
+- **Zustand** - Lightweight client state
+- **React Query** - Server state, cache, sync
+
+### Testing
+- **Playwright** - E2E testing framework
+- **Page Object Model** - Organization pattern
+- **Test Fixtures** - Centralized data
+
+### Development Tools
+- **pnpm** - Efficient package manager
+- **ESLint** - Linting and code quality
+- **PostCSS** - CSS processing
+
+### Architecture Patterns
+- **Component-Based** - Modular and reusable
+- **Hook Pattern** - Shared logic
+- **Provider Pattern** - Context and dependency injection
+- **Repository Pattern** - Data abstraction
