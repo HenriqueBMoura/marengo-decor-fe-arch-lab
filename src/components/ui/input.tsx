@@ -10,11 +10,19 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 export function Input({ label, className, ...props }: InputProps) {
   return (
     <label className="flex flex-col gap-1 text-sm">
-      {label && <span className="font-medium text-neutral-800">{label}</span>}
+      {label && (
+        <span className="font-medium text-text-primary">{label}</span>
+      )}
       <input
         className={clsx(
-          "rounded-md border border-neutral-300 px-3 py-2 text-sm outline-none transition focus:border-black focus:ring-1 focus:ring-black",
-          className
+          // Base
+          "rounded-md border border-border bg-surface-soft px-3 py-2 text-sm text-text-primary",
+          "outline-none transition",
+          // Placeholder + disabled + focus states rely on design tokens
+          "placeholder:text-text-muted",
+          "focus-visible:border-brand focus-visible:ring-2 focus-visible:ring-ring",
+          "disabled:cursor-not-allowed disabled:opacity-60",
+          className,
         )}
         {...props}
       />
